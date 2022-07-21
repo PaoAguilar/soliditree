@@ -1,10 +1,25 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from 'next/link';
+import { useMoralis } from 'react-moralis'
 
 export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+    const {
+      authenticate,
+      isAuthenticated,
+      account,
+      logout,
+      enableWeb3,
+      isWeb3Enabled,
+    } = useMoralis();
+
+    useEffect(() => {
+      if (!isWeb3Enabled) {
+        enableWeb3();
+      }
+    }, [isWeb3Enabled]);
+
     return (
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="relative flex items-center justify-between">
@@ -34,15 +49,65 @@ export const Navbar = () => {
             </span>
           </a>
           <ul className="flex items-center hidden space-x-8 lg:flex">
+            {isAuthenticated &&
+            <>
+              <li>
+                <a
+                  href="/staking"
+                  aria-label="Our product"
+                  title="Our product"
+                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
+                >
+                  Staking
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/"
+                  aria-label="Our product"
+                  title="Our product"
+                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
+                >
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/"
+                  aria-label="Our product"
+                  title="Our product"
+                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
+                >
+                  Withdraw
+                </a>
+              </li>
+            </>
+            }
             <li>
-              <a
-                href="/signIn"
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-200 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up"
-              >
-                Sign up
-              </a>
+            {isAuthenticated ?
+            <>
+            <p className="inline-block px-5 py-3 mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-social-impact-100">
+              {account?.slice(0, 10)}...
+            </p>
+            <button
+              onClick={() => logout()}
+              className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-200 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
+              aria-label="Sign up"
+              title="Logout"
+            >
+              Logout
+            </button> 
+            </> : 
+            <button
+              onClick={() => authenticate()}
+              className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-200 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
+              aria-label="Sign up"
+              title="Sign up"
+            >
+              Sign in
+            </button>
+            }
+              
             </li>
           </ul>
           <div className="lg:hidden">

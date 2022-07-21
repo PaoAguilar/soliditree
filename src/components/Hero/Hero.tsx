@@ -1,10 +1,39 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import bannerImg from '../../assets/images/banner.png';
 import Image from 'next/image';
-console.log('bannerImg',bannerImg)
+import {useMoralis} from 'react-moralis'
+import { useRouter } from 'next/router';
 
 const Hero = () => {
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const router = useRouter()
+  const {
+    authenticate,
+    isAuthenticated,
+    account,
+    logout,
+    enableWeb3,
+    isWeb3Enabled,
+  } = useMoralis();
+  // console.log('account',account)
+  console.log('isAuthenticated',isAuthenticated)
+
+  const onClickRedirect = () => {
+    if(!isAuthenticated) {
+      setErrorMessage("You need to authenticate first");
+    }else {
+      
+      router.push("/staking")
+    }
+  }
+
+  useEffect(() => {
+    if(isAuthenticated) {
+      setErrorMessage("");
+    }
+  }, [isAuthenticated])
+
     return (
     <div className="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
       <div className="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0">
@@ -40,13 +69,17 @@ const Hero = () => {
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
             quae. explicabo.
           </p>
+          {/* {isAuthenticated ? } */}
           <div className="flex items-center">
-            <a
-              href="/"
+            <button
+              onClick={onClickRedirect}
               className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-200 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
             >
               Start saving and earning
-            </a>
+            </button>
+          </div>
+          <div className='text-red-accent-700'>
+            {errorMessage}
           </div>
         </div>
       </div>
