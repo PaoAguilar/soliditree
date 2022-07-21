@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Image from 'next/image';
 import React from 'react';
@@ -7,16 +6,12 @@ import bannerImg from '../src/assets/images/banner2.png';
 const SignIn = () => {
     return (
     <div className="relative">
-      {/* <img
-        src={bannerImg}
+      <img
+        src="banner2.png?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
         className="absolute inset-0 object-cover w-full h-full"
         alt=""
-      /> */}
-      <div className="absolute inset-0 object-cover w-full h-full">
-      <Image src={bannerImg} width={1260} height={690}alt="img" />
-      </div>
-      
-      <div className="relative bg-opacity-75 bg-deep-purple-accent-700">
+      />
+      <div className="relative bg-opacity-75 bg-social-impact-200">
         <svg
           className="absolute inset-x-0 bottom-0 text-white"
           viewBox="0 0 1160 163"
@@ -41,7 +36,7 @@ const SignIn = () => {
               <a
                 href="/"
                 aria-label=""
-                className="inline-flex items-center font-semibold tracking-wider transition-colors duration-200 text-teal-accent-400 hover:text-teal-accent-700"
+                className="inline-flex items-center font-semibold tracking-wider transition-colors duration-200 text-social-impact-50 hover:text-teal-accent-700"
               >
                 Learn more
                 <svg
@@ -70,7 +65,7 @@ const SignIn = () => {
                       placeholder="John"
                       required
                       type="text"
-                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-social-impact-300 focus:outline-none focus:shadow-outline"
                       id="firstName"
                       name="firstName"
                     />
@@ -86,7 +81,7 @@ const SignIn = () => {
                       placeholder="Doe"
                       required
                       type="text"
-                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-social-impact-300 focus:outline-none focus:shadow-outline"
                       id="lastName"
                       name="lastName"
                     />
@@ -102,7 +97,7 @@ const SignIn = () => {
                       placeholder="john.doe@example.org"
                       required
                       type="text"
-                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                      className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-social-impact-300 focus:outline-none focus:shadow-outline"
                       id="email"
                       name="email"
                     />
@@ -110,7 +105,7 @@ const SignIn = () => {
                   <div className="mt-4 mb-2 sm:mb-4">
                     <button
                       type="submit"
-                      className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                      className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-300 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
                     >
                       Subscribe
                     </button>

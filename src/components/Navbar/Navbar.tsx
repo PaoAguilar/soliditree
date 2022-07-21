@@ -15,7 +15,7 @@ export const Navbar = () => {
             className="inline-flex items-center"
           >
             <svg
-              className="w-8 text-deep-purple-accent-400"
+              className="w-8 text-social-impact-300"
               viewBox="0 0 24 24"
               strokeLinejoin="round"
               strokeWidth="2"
@@ -39,7 +39,7 @@ export const Navbar = () => {
                 href="/"
                 aria-label="Our product"
                 title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
               >
                 Product
               </a>
@@ -49,7 +49,7 @@ export const Navbar = () => {
                 href="/"
                 aria-label="Our product"
                 title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
               >
                 Features
               </a>
@@ -59,7 +59,7 @@ export const Navbar = () => {
                 href="/"
                 aria-label="Product pricing"
                 title="Product pricing"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
               >
                 Pricing
               </a>
@@ -69,15 +69,15 @@ export const Navbar = () => {
                 href="/signIn"
                 aria-label="About us"
                 title="About us"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
               >
                 About us
               </a>
             </li>
             <li>
               <a
-                href="/"
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                href="/signIn"
+                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-200 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
                 aria-label="Sign up"
                 title="Sign up"
               >
@@ -119,7 +119,7 @@ export const Navbar = () => {
                         className="inline-flex items-center"
                       >
                         <svg
-                          className="w-8 text-deep-purple-accent-400"
+                          className="w-8 text-social-impact-300"
                           viewBox="0 0 24 24"
                           strokeLinejoin="round"
                           strokeWidth="2"
@@ -161,7 +161,7 @@ export const Navbar = () => {
                           href="/"
                           aria-label="Our product"
                           title="Our product"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
                         >
                           Product
                         </a>
@@ -171,7 +171,7 @@ export const Navbar = () => {
                           href="/"
                           aria-label="Our product"
                           title="Our product"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
                         >
                           Features
                         </a>
@@ -181,7 +181,7 @@ export const Navbar = () => {
                           href="/"
                           aria-label="Product pricing"
                           title="Product pricing"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
                         >
                           Pricing
                         </a>
@@ -191,23 +191,20 @@ export const Navbar = () => {
                           href="/"
                           aria-label="About us"
                           title="About us"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
                         >
                           About us
                         </a>
                       </li>
                       <li>
                         <a
-                          href="/singIn"
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                          href="/signIn"
+                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-300 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                           aria-label="Sign up"
                           title="Sign up"
                         >
                           Sign up
                         </a>
-                        {/* <Link href="/singIn" className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
-                            <a>Sign up aver</a>
-                        </Link> */}
                       </li>
                     </ul>
                   </nav>

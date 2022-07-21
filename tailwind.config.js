@@ -197,6 +197,12 @@ module.exports = {
           'accent-400': '#00e676',
           'accent-700': '#00c853',
         },
+        'social-impact': {
+          50: '#b9f9d6',
+          100: '#a6dd45',
+          200: '#1c844d',
+          300: '#146639'
+        },
         'light-green': {
           50: '#f1f8e9',
           100: '#dcedc8',

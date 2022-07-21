@@ -49,7 +49,7 @@ const About = () => {
           <div className="mr-4">
             <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
               <svg
-                className="w-10 h-10 text-deep-purple-accent-400"
+                className="w-10 h-10 text-social-impact-300"
                 stroke="currentColor"
                 viewBox="0 0 52 52"
               >
@@ -73,7 +73,7 @@ const About = () => {
             <a
               href="/"
               aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+              className="inline-flex items-center font-semibold transition-colors duration-200 text-social-impact-300 hover:text-deep-purple-800"
             >
               Learn more
             </a>
@@ -83,7 +83,7 @@ const About = () => {
           <div className="mr-4">
             <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
               <svg
-                className="w-10 h-10 text-deep-purple-accent-400"
+                className="w-10 h-10 text-social-impact-300"
                 stroke="currentColor"
                 viewBox="0 0 52 52"
               >
@@ -110,7 +110,7 @@ const About = () => {
             <a
               href="/"
               aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+              className="inline-flex items-center font-semibold transition-colors duration-200 text-social-impact-300 hover:text-deep-purple-800"
             >
               Learn more
             </a>
@@ -120,7 +120,7 @@ const About = () => {
           <div className="mr-4">
             <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
               <svg
-                className="w-10 h-10 text-deep-purple-accent-400"
+                className="w-10 h-10 text-social-impact-300"
                 stroke="currentColor"
                 viewBox="0 0 52 52"
               >
@@ -147,7 +147,7 @@ const About = () => {
             <a
               href="/"
               aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+              className="inline-flex items-center font-semibold transition-colors duration-200 text-social-impact-300 hover:text-deep-purple-800"
             >
               Learn more
             </a>
@@ -157,7 +157,7 @@ const About = () => {
           <div className="mr-4">
             <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
               <svg
-                className="w-10 h-10 text-deep-purple-accent-400"
+                className="w-10 h-10 text-social-impact-300"
                 stroke="currentColor"
                 viewBox="0 0 52 52"
               >
@@ -184,7 +184,7 @@ const About = () => {
             <a
               href="/"
               aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+              className="inline-flex items-center font-semibold transition-colors duration-200 text-social-impact-300 hover:text-social-impact-300"
             >
               Learn more
             </a>
