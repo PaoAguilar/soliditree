@@ -45,14 +45,7 @@ const Hero = () => {
               href="/"
               className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-200 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
             >
-              Get started
-            </a>
-            <a
-              href="/"
-              aria-label=""
-              className="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-social-impact-300"
-            >
-              Learn more
+              Start saving and earning
             </a>
           </div>
         </div>

@@ -36,46 +36,6 @@ export const Navbar = () => {
           <ul className="flex items-center hidden space-x-8 lg:flex">
             <li>
               <a
-                href="/"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-              >
-                Product
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-              >
-                Features
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
-                aria-label="Product pricing"
-                title="Product pricing"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-              >
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a
-                href="/signIn"
-                aria-label="About us"
-                title="About us"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-              >
-                About us
-              </a>
-            </li>
-            <li>
-              <a
                 href="/signIn"
                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-200 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
                 aria-label="Sign up"
@@ -155,47 +115,7 @@ export const Navbar = () => {
                     </div>
                   </div>
                   <nav>
-                    <ul className="space-y-4">
-                      <li>
-                        <a
-                          href="/"
-                          aria-label="Our product"
-                          title="Our product"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-                        >
-                          Product
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/"
-                          aria-label="Our product"
-                          title="Our product"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-                        >
-                          Features
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/"
-                          aria-label="Product pricing"
-                          title="Product pricing"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-                        >
-                          Pricing
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/"
-                          aria-label="About us"
-                          title="About us"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-                        >
-                          About us
-                        </a>
-                      </li>
+                    <ul className="space-y-4">                      
                       <li>
                         <a
                           href="/signIn"
