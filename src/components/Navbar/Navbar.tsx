@@ -63,7 +63,7 @@ export const Navbar = () => {
               </li>
               <li>
                 <a
-                  href="/"
+                  href="/profile"
                   aria-label="Our product"
                   title="Our product"
                   className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
@@ -73,7 +73,7 @@ export const Navbar = () => {
               </li>
               <li>
                 <a
-                  href="/"
+                  href="/withdraw"
                   aria-label="Our product"
                   title="Our product"
                   className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
