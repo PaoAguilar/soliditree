@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @next/next/no-html-link-for-pages */
-import React from 'react';
+import React from "react";
 
 const About = () => {
-    return (
-        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+  return (
+    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
         <div>
           <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
@@ -36,7 +36,7 @@ const About = () => {
               />
             </svg>
             <span className="relative">The</span>
-          </span>{' '}
+          </span>{" "}
           quick, brown fox jumps over a lazy dog
         </h2>
         <p className="text-base text-gray-700 md:text-lg">
@@ -192,7 +192,7 @@ const About = () => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default About;

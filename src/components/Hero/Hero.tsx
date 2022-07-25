@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import React, { useEffect, useState } from 'react';
-import bannerImg from '../../assets/images/banner.png';
-import Image from 'next/image';
-import {useMoralis} from 'react-moralis'
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from "react";
+import bannerImg from "../../assets/images/banner.png";
+import Image from "next/image";
+import { useMoralis } from "react-moralis";
+import { useRouter } from "next/router";
 
 const Hero = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const router = useRouter()
+  const router = useRouter();
   const {
     authenticate,
     isAuthenticated,
@@ -17,24 +17,23 @@ const Hero = () => {
     isWeb3Enabled,
   } = useMoralis();
   // console.log('account',account)
-  console.log('isAuthenticated',isAuthenticated)
+  console.log("isAuthenticated", isAuthenticated);
 
   const onClickRedirect = () => {
-    if(!isAuthenticated) {
+    if (!isAuthenticated) {
       setErrorMessage("You need to authenticate first");
-    }else {
-      
-      router.push("/staking")
+    } else {
+      router.push("/staking");
     }
-  }
+  };
 
   useEffect(() => {
-    if(isAuthenticated) {
+    if (isAuthenticated) {
       setErrorMessage("");
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
-    return (
+  return (
     <div className="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
       <div className="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0">
         <svg
@@ -46,7 +45,7 @@ const Hero = () => {
           <path d="M50 0H100L50 100H0L50 0Z" />
         </svg>
         <img
-          className="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
+          className="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full object-right"
           src="banner.png?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
           alt=""
         />
@@ -59,10 +58,8 @@ const Hero = () => {
           <h2 className="mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
             Everything you
             <br className="hidden md:block" />
-            can imagine{' '}
-            <span className="inline-block text-social-impact-300">
-              is real
-            </span>
+            can imagine{" "}
+            <span className="inline-block text-social-impact-300">is real</span>
           </h2>
           <p className="pr-5 mb-5 text-base text-gray-700 md:text-lg">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
@@ -78,13 +75,11 @@ const Hero = () => {
               Start saving and earning
             </button>
           </div>
-          <div className='text-red-accent-700'>
-            {errorMessage}
-          </div>
+          <div className="text-red-accent-700">{errorMessage}</div>
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default Hero;
