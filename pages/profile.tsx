@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import React from 'react';
+import Footer from '../src/components/Footer/Footer';
 import { Navbar } from '../src/components/Navbar/Navbar';
 
 const Profile = () => {
@@ -290,6 +291,7 @@ const Profile = () => {
         </a>
       </div>
     </div>
+    <Footer />
         </div>
     );
 };

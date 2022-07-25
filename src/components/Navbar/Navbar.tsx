@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react";
 import Link from 'next/link';
 import { useMoralis } from 'react-moralis'
+import { useRouter } from "next/router";
 
 export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const route = useRouter();
     const {
       authenticate,
       isAuthenticated,
@@ -90,7 +92,10 @@ export const Navbar = () => {
               {account?.slice(0, 10)}...
             </p>
             <button
-              onClick={() => logout()}
+              onClick={() => {
+                logout(); 
+                route.push('/');
+              }}
               className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-200 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
               aria-label="Sign up"
               title="Logout"

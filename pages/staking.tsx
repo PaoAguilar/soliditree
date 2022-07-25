@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from '../src/components/Footer/Footer';
 import { Navbar } from '../src/components/Navbar/Navbar';
 
 const Staking = () => {
@@ -113,6 +114,7 @@ const Staking = () => {
               </div>
             </div> */}
             {/* fin aqui */}
+            <Footer />
         </div>
     );
 };
