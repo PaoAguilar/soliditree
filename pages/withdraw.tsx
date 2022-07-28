@@ -49,6 +49,79 @@ const withdraw = () => {
           </div>
           <hr className="w-full my-8 border-gray-300" />
         </div>
+        <div className="overflow-x-auto relative">
+          <h2 className="mb-4 font-sans font-bold tracking-tight sm:text-2xl text-gray-900 sm:text-center">
+            Transactions history
+          </h2>
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="py-3 px-6">
+                  Blockchain Link
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  Transaction date
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  Transaction amount
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  Transaction type
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th
+                  scope="row"
+                  className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  <a
+                    href="#"
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
+                    0xfaafe6b...
+                  </a>
+                </th>
+                <td className="py-4 px-6">July 28 at 16:41</td>
+                <td className="py-4 px-6">Amount here....</td>
+                <td className="py-4 px-6">Staking</td>
+              </tr>
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th
+                  scope="row"
+                  className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  <a
+                    href="#"
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
+                    0x657c561...
+                  </a>
+                </th>
+                <td className="py-4 px-6">July 28 at 16:41</td>
+                <td className="py-4 px-6">Amount here....</td>
+                <td className="py-4 px-6">Staking</td>
+              </tr>
+              <tr className="bg-white dark:bg-gray-800">
+                <th
+                  scope="row"
+                  className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  <a
+                    href="#"
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
+                    0xd915cba...
+                  </a>
+                </th>
+                <td className="py-4 px-6">July 28 at 16:41</td>
+                <td className="py-4 px-6">Amount here....</td>
+                <td className="py-4 px-6">Withdraw</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
