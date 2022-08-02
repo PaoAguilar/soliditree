@@ -12,8 +12,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MoralisProvider
-        appId="oXxFHo2Yz29rUfncfneSRh7fOKzuV3FzmUjdNdWe"
-        serverUrl="https://lbpsvvhshu0i.usemoralis.com:2053/server"
+        appId={process.env.NEXT_PUBLIC_MORALIS_APP_ID!}
+        serverUrl={process.env.NEXT_PUBLIC_MORALIS_SERVER_URL!}
       >
         <Component {...pageProps} />
       </MoralisProvider>
