@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useChain, useMoralis } from "react-moralis";
+import { useChain, useMoralis, useNativeBalance } from "react-moralis";
 import Footer from "../src/components/Footer/Footer";
 import { Navbar } from "../src/components/Navbar/Navbar";
 import { useAllowance, useAprove, useDeposit } from "../src/web3/hooks";
@@ -17,7 +17,7 @@ const Staking = () => {
   const [amount, setAmount] = useState<string>("0");
 
   const { account } = useMoralis();
-
+  const { getBalances, data: balance } = useNativeBalance();
   const { chainId, switchNetwork } = useChain();
   // console.log(res)
   const isCorrectNetwork = chainId === "0x89" || chainId === "0x13881";
@@ -28,6 +28,7 @@ const Staking = () => {
   const { fetch: deposit } = useDeposit(+amount);
 
   console.log(data);
+  console.log("balance", balance);
 
   return (
     <div>
@@ -154,7 +155,7 @@ const Staking = () => {
                   Wallet amount:
                   <br className="hidden md:block" />
                   <span className="inline-block text-social-impact-100">
-                    $0.00
+                    {balance.formatted}
                   </span>
                 </h2>
               </div>
