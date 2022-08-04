@@ -21,25 +21,30 @@ const Withdraw = () => {
   const { account } = useMoralis();
   const [amount, setAmount] = useState<string>("0");
   const [balance, setBalance] = useState<any>();
+  const [decimal, setDecimal] = useState<string>("0");
   const [transfers, setTransfers] = useState<any>();
-  const { fetch: deposit } = useDeposit(+amount);
-  const { fetch: withdraw } = useWithdraw(+amount);
+  const { fetch: deposit } = useDeposit(+amount * Math.pow(10, +decimal));
+  const { fetch: withdraw } = useWithdraw(+amount * Math.pow(10, +decimal));
   const { data: aproveData, fetch: approve } = useAprove(+amount);
   const { data, fetch } = useAllowance(account);
-  const { data: erc20Data } = useERC20Balances();
+  const { data: erc20Data } = useERC20Balances({}, { autoFetch: true });
   const { data: erc20TransfersData, isLoading: erc20TransfersIsLoading } =
     useERC20Transfers();
   const isCorrectNetwork = chainId === "0x89" || chainId === "0x13881";
 
-  console.log("transfers", transfers);
+  // console.log("erc20Data", erc20Data);
+  // console.log("decimal", decimal);
 
   useEffect(() => {
-    // console.log("ERC20", erc20Data);
     if (erc20Data) {
       const newErcdata = erc20Data.filter(
         (data) => data.token_address === approveAddress.toLowerCase()
       );
-      console.log("newErcdata", newErcdata);
+      const decimal = erc20Data?.find(
+        (data) => data.token_address === contractAddress.toLowerCase()
+      )?.decimals;
+      // console.log("DECIMAL", decimal);
+      setDecimal(decimal ?? "0");
       setBalance(newErcdata);
     }
     if (erc20TransfersData) {
@@ -67,7 +72,8 @@ const Withdraw = () => {
           <h2 className="mb-4 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
             WALLET DEPOSITS{" "}
             <span className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-social-impact-100">
-              Balance: {(balance && balance[0]?.balance / 10 ** 18) || 0}
+              Balance:{" "}
+              {(balance && (balance[0]?.balance / 10 ** 18).toFixed(2)) || 0}
             </span>
           </h2>
           <div>
@@ -171,7 +177,21 @@ const Withdraw = () => {
                   const isWithdraw =
                     transfer.to_address ===
                     "0x0000000000000000000000000000000000000000";
-                  console.log("isWithdraw", isWithdraw);
+                  const isTransfer =
+                    transfer.to_address !==
+                      "0x0000000000000000000000000000000000000000" &&
+                    transfer.from_address !==
+                      "0x0000000000000000000000000000000000000000";
+
+                  const showTransaction = () => {
+                    if (isTransfer) {
+                      return "Transfer";
+                    } else if (isWithdraw) {
+                      return "Withdraw";
+                    } else return "Staking";
+                  };
+
+                  // console.log("isWithdraw", isWithdraw);
                   return (
                     <>
                       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -193,9 +213,7 @@ const Withdraw = () => {
                           )}
                         </td>
                         <td className="py-4 px-6">{transfer.value}</td>
-                        <td className="py-4 px-6">
-                          {isWithdraw ? "Withdraw" : "Staking"}
-                        </td>
+                        <td className="py-4 px-6">{showTransaction()}</td>
                       </tr>
                     </>
                   );
