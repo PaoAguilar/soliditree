@@ -29,7 +29,7 @@ const Staking = () => {
   console.log("account", account);
 
   const { data, fetch } = useAllowance(account);
-  const { data: aproveData, loading, fetch: approve } = useAprove(+amount);
+  const { data: aproveData, fetch: approve } = useAprove(+amount);
   const { fetch: deposit } = useDeposit(+amount);
 
   console.log(data);
@@ -110,7 +110,7 @@ const Staking = () => {
                       </div>
                     )}
                   </div>
-                  {isCorrectNetwork && parseInt(data?._hex, 16) > 0 ? (
+                  {isCorrectNetwork && parseInt((data as any)?._hex, 16) > 0 ? (
                     <button
                       className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-100 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
                       aria-label="Sign up"

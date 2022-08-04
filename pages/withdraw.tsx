@@ -103,7 +103,7 @@ const Withdraw = () => {
                   </button>
                 </div>
                 <div>
-                  {isCorrectNetwork && parseInt(data?._hex, 16) > 0 ? (
+                  {isCorrectNetwork && parseInt((data as any)?._hex, 16) > 0 ? (
                     <button
                       className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-300 hover:bg-social-impact-200 focus:shadow-outline focus:outline-none"
                       title="deposit"
