@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { useChain, useMoralis, useNativeBalance } from "react-moralis";
+import {
+  useChain,
+  useMoralis,
+  useNativeBalance,
+  useERC20Balances,
+} from "react-moralis";
 import Footer from "../src/components/Footer/Footer";
 import { Navbar } from "../src/components/Navbar/Navbar";
 import { useAllowance, useAprove, useDeposit } from "../src/web3/hooks";

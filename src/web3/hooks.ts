@@ -46,3 +46,18 @@ export const useDeposit = (amount: number) => {
   );
   return result;
 };
+
+export const useWithdraw = (amount: number) => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: contractAbi,
+      contractAddress: contractAddress,
+      functionName: "withdraw",
+      params: { _amount: amount },
+    },
+    {
+      autoFetch: false,
+    }
+  );
+  return result;
+};
