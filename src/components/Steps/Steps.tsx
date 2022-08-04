@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const Steps = () => {
-    return (
+  return (
     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="grid gap-6 row-gap-10 lg:grid-cols-2">
         <div className="lg:py-6 lg:pr-16">
@@ -37,11 +37,7 @@ const Steps = () => {
             </div>
             <div className="pt-1 pb-8">
               <p className="mb-2 text-lg font-bold">Step 1</p>
-              <p className="text-gray-700">
-                All recipes are written using certain conventions, which define
-                the characteristics of common ingredients. The rules vary from
-                place to place.
-              </p>
+              <p className="text-gray-700">Sign in with Metamask.</p>
             </div>
           </div>
           <div className="flex">
@@ -77,9 +73,8 @@ const Steps = () => {
             <div className="pt-1 pb-8">
               <p className="mb-2 text-lg font-bold">Step 2</p>
               <p className="text-gray-700">
-                The first mate and his Skipper too will do their very best to
-                make the others comfortable in their tropic island nest. Michael
-                Knight a young loner.
+                Approve the SolidiTree contract with the amount desired to
+                deposit.
               </p>
             </div>
           </div>
@@ -116,8 +111,8 @@ const Steps = () => {
             <div className="pt-1 pb-8">
               <p className="mb-2 text-lg font-bold">Step 3</p>
               <p className="text-gray-700">
-                Tell them I hate them. Is the Space Pope reptilian!? Tell her
-                she looks thin. Hello, little man. I will destroy you!
+                Wrap USDT tokens, by depositing an amount of money you want to
+                stake.
               </p>
             </div>
           </div>
@@ -154,9 +149,7 @@ const Steps = () => {
             <div className="pt-1 pb-8">
               <p className="mb-2 text-lg font-bold">Step 4</p>
               <p className="text-gray-700">
-                If one examines precultural libertarianism, one is faced with a
-                choice: either accept rationalism or conclude that context is a
-                product.
+                Claim your Commemorative NFT to show your support.
               </p>
             </div>
           </div>
@@ -182,8 +175,9 @@ const Steps = () => {
               </div>
             </div>
             <div className="pt-1">
-              <p className="mb-2 text-lg font-bold">Success</p>
-              <p className="text-gray-700" />
+              <p className="mb-2 text-lg font-bold text-social-impact-200">
+                Success
+              </p>
             </div>
           </div>
         </div>
@@ -196,7 +190,7 @@ const Steps = () => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default Steps;
