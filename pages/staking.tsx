@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-import {
-  useChain,
-  useMoralis,
-  useNativeBalance,
-  useERC20Balances,
-} from "react-moralis";
+import React, { useEffect, useState } from "react";
+import { useChain, useMoralis, useERC20Balances } from "react-moralis";
 import Footer from "../src/components/Footer/Footer";
 import { Navbar } from "../src/components/Navbar/Navbar";
+import { approveAddress } from "../src/web3/addresses";
 import { useAllowance, useAprove, useDeposit } from "../src/web3/hooks";
 
 const chains = {
@@ -22,18 +18,26 @@ const Staking = () => {
   const [amount, setAmount] = useState<string>("0");
 
   const { account } = useMoralis();
-  const { getBalances, data: balance } = useNativeBalance();
+  const { data: erc20Data, fetchERC20Balances } = useERC20Balances(
+    {},
+    { autoFetch: true }
+  );
   const { chainId, switchNetwork } = useChain();
-  // console.log(res)
   const isCorrectNetwork = chainId === "0x89" || chainId === "0x13881";
   console.log("account", account);
 
   const { data, fetch } = useAllowance(account);
   const { data: aproveData, fetch: approve } = useAprove(+amount);
   const { fetch: deposit } = useDeposit(+amount);
+  const myBalance = erc20Data?.find(
+    (data) => data.token_address === approveAddress.toLowerCase()
+  )?.balance;
 
   console.log(data);
-  console.log("balance", balance);
+  useEffect(() => {
+    if (erc20Data) fetchERC20Balances();
+  }, []);
+  console.log("myBalance", myBalance);
 
   return (
     <div>
@@ -160,7 +164,7 @@ const Staking = () => {
                   Wallet amount:
                   <br className="hidden md:block" />
                   <span className="inline-block text-social-impact-100">
-                    {balance.formatted}
+                    {Number(myBalance).toFixed(2)}
                   </span>
                 </h2>
               </div>

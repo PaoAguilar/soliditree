@@ -23,9 +23,15 @@ const Withdraw = () => {
   const [balance, setBalance] = useState<any>();
   const [decimal, setDecimal] = useState<string>("0");
   const [transfers, setTransfers] = useState<any>();
-  const { fetch: deposit } = useDeposit(+amount * Math.pow(10, +decimal));
+  const { fetch: deposit, isLoading: isLoadingDeposit } = useDeposit(
+    +amount * Math.pow(10, +decimal)
+  );
   const { fetch: withdraw } = useWithdraw(+amount * Math.pow(10, +decimal));
-  const { data: aproveData, fetch: approve } = useAprove(+amount);
+  const {
+    data: aproveData,
+    fetch: approve,
+    isLoading: isLoadingApprove,
+  } = useAprove(+amount);
   const { data, fetch } = useAllowance(account);
   const { data: erc20Data } = useERC20Balances({}, { autoFetch: true });
   const { data: erc20TransfersData, isLoading: erc20TransfersIsLoading } =
@@ -123,7 +129,7 @@ const Withdraw = () => {
                         }
                       }}
                     >
-                      DEPOSIT {amount} USDC
+                      {isLoadingDeposit ? "Loading" : `DEPOSIT ${amount} USDC`}
                     </button>
                   ) : (
                     <button
@@ -141,7 +147,7 @@ const Withdraw = () => {
                         }
                       }}
                     >
-                      Approve {amount} USDC
+                      {isLoadingApprove ? "Loading" : `Approve ${amount} USDC`}
                     </button>
                   )}
                 </div>
