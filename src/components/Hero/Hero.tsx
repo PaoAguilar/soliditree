@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { useRouter } from "next/router";
+import { useTotalSupply } from "../../web3/hooks";
 
 const Hero = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -29,6 +30,9 @@ const Hero = () => {
       setErrorMessage("");
     }
   }, [isAuthenticated]);
+
+  const { data } = useTotalSupply();
+  console.log(data);
 
   return (
     <div className="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">

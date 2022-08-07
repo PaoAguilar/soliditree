@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useChain, useMoralis, useERC20Balances } from "react-moralis";
+import { ethers } from "ethers";
+import { components } from "moralis/types/generated/web3Api";
+import { useMemo, useState } from "react";
+import { useChain, useERC20Balances, useMoralis } from "react-moralis";
 import Footer from "../src/components/Footer/Footer";
 import { Navbar } from "../src/components/Navbar/Navbar";
-import { approveAddress } from "../src/web3/addresses";
-import { useAllowance, useAprove, useDeposit } from "../src/web3/hooks";
-
+import {
+  useAllowance,
+  useAprove,
+  useBalance,
+  useDecimal,
+  useDeposit,
+} from "../src/web3/hooks";
 const chains = {
   "0x89": "Polygon",
   "0x13881": "Mumbai",
@@ -15,29 +21,31 @@ const Staking = () => {
     name: string;
     chainId: string;
   }>({ name: "Mumbai", chainId: "0x13881" });
-  const [amount, setAmount] = useState<string>("0");
+  const [amount, setAmount] = useState<string>("");
 
   const { account } = useMoralis();
-  const { data: erc20Data, fetchERC20Balances } = useERC20Balances(
-    {},
-    { autoFetch: true }
-  );
   const { chainId, switchNetwork } = useChain();
   const isCorrectNetwork = chainId === "0x89" || chainId === "0x13881";
-  console.log("account", account);
+  const { data: erc20Data, fetchERC20Balances } = useERC20Balances(
+    { chain: chainId! as components["schemas"]["chainList"] },
+    { autoFetch: true }
+  );
 
   const { data, fetch } = useAllowance(account);
-  const { data: aproveData, fetch: approve } = useAprove(+amount);
-  const { fetch: deposit } = useDeposit(+amount);
-  const myBalance = erc20Data?.find(
-    (data) => data.token_address === approveAddress.toLowerCase()
-  )?.balance;
+  const { data: balance } = useBalance(account);
+  const { data: decimals } = useDecimal();
 
-  console.log(data);
-  useEffect(() => {
-    if (erc20Data) fetchERC20Balances();
-  }, []);
-  console.log("myBalance", myBalance);
+  const bigAmmount = useMemo(() => {
+    if (amount && decimals) {
+      return ethers.utils.parseUnits(amount, decimals as number);
+    }
+  }, [amount, decimals]);
+
+  console.log(bigAmmount);
+
+  const { fetch: deposit } = useDeposit(bigAmmount);
+
+  const { data: aproveData, fetch: approve } = useAprove(bigAmmount);
 
   return (
     <div>
@@ -164,7 +172,10 @@ const Staking = () => {
                   Wallet amount:
                   <br className="hidden md:block" />
                   <span className="inline-block text-social-impact-100">
-                    {Number(myBalance).toFixed(2)}
+                    {ethers.utils.formatUnits(
+                      (balance as string) ?? "0",
+                      decimals as number
+                    )}
                   </span>
                 </h2>
               </div>

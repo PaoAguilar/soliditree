@@ -1,8 +1,9 @@
 import { useWeb3ExecuteFunction } from "react-moralis";
 import { contractAbi, rc20Abi } from "./abis";
 import { approveAddress, contractAddress } from "./addresses";
+import { ethers } from "ethers";
 
-export const useAprove = (amount: number) => {
+export const useAprove = (amount?: ethers.BigNumber) => {
   const result = useWeb3ExecuteFunction(
     {
       abi: rc20Abi,
@@ -32,7 +33,7 @@ export const useAllowance = (userAddress?: string | null) => {
   return result;
 };
 
-export const useDeposit = (amount: number) => {
+export const useDeposit = (amount?: ethers.BigNumber) => {
   const result = useWeb3ExecuteFunction(
     {
       abi: contractAbi,
@@ -58,6 +59,45 @@ export const useWithdraw = (amount: number) => {
     {
       autoFetch: false,
     }
+  );
+  return result;
+};
+
+export const useDecimal = () => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: rc20Abi,
+      contractAddress: approveAddress,
+      functionName: "decimals",
+      params: {},
+    },
+    { autoFetch: true }
+  );
+  return result;
+};
+
+export const useBalance = (userAddress?: string | null) => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: rc20Abi,
+      contractAddress: approveAddress,
+      functionName: "balanceOf",
+      params: { account: userAddress },
+    },
+    { autoFetch: !!userAddress }
+  );
+  return result;
+};
+
+export const useTotalSupply = () => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: contractAbi,
+      contractAddress: contractAddress,
+      functionName: "totalSupply",
+      params: {},
+    },
+    { autoFetch: true }
   );
   return result;
 };

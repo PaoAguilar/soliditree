@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Navbar } from "../src/components/Navbar/Navbar";
 import {
   useChain,
@@ -10,49 +10,48 @@ import {
 import {
   useAllowance,
   useAprove,
+  useDecimal,
   useDeposit,
   useWithdraw,
 } from "../src/web3/hooks";
 import moment from "moment";
 import { approveAddress, contractAddress } from "../src/web3/addresses";
+import { ethers } from "ethers";
 
 const Withdraw = () => {
   const { chainId, switchNetwork } = useChain();
   const { account } = useMoralis();
   const [amount, setAmount] = useState<string>("0");
   const [balance, setBalance] = useState<any>();
-  const [decimal, setDecimal] = useState<string>("0");
   const [transfers, setTransfers] = useState<any>();
+
+  const { data: decimals } = useDecimal();
   const { fetch: deposit, isLoading: isLoadingDeposit } = useDeposit(
-    +amount * Math.pow(10, +decimal)
+    +amount * Math.pow(10, decimals as number)
   );
-  const { fetch: withdraw } = useWithdraw(+amount * Math.pow(10, +decimal));
+  const { fetch: withdraw } = useWithdraw(
+    +amount * Math.pow(10, decimals as number)
+  );
+
+  const bigAmmount = useMemo(() => {
+    if (amount && decimals) {
+      return ethers.utils.parseUnits(amount, decimals as number);
+    }
+  }, [amount, decimals]);
+
   const {
     data: aproveData,
     fetch: approve,
     isLoading: isLoadingApprove,
-  } = useAprove(+amount);
+  } = useAprove(bigAmmount);
+
   const { data, fetch } = useAllowance(account);
   const { data: erc20Data } = useERC20Balances({}, { autoFetch: true });
   const { data: erc20TransfersData, isLoading: erc20TransfersIsLoading } =
     useERC20Transfers();
   const isCorrectNetwork = chainId === "0x89" || chainId === "0x13881";
 
-  // console.log("erc20Data", erc20Data);
-  // console.log("decimal", decimal);
-
   useEffect(() => {
-    if (erc20Data) {
-      const newErcdata = erc20Data.filter(
-        (data) => data.token_address === approveAddress.toLowerCase()
-      );
-      const decimal = erc20Data?.find(
-        (data) => data.token_address === contractAddress.toLowerCase()
-      )?.decimals;
-      // console.log("DECIMAL", decimal);
-      setDecimal(decimal ?? "0");
-      setBalance(newErcdata);
-    }
     if (erc20TransfersData) {
       const transfers = erc20TransfersData.result?.filter(
         (data) => data.address === contractAddress.toLowerCase()
