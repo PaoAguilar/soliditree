@@ -1,21 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import React, { useEffect, useState } from "react";
-import { useMoralis } from "react-moralis";
+import { useMoralis, useApiContract } from "react-moralis";
 import { useRouter } from "next/router";
 import { useTotalSupply } from "../../web3/hooks";
 
 const Hero = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const router = useRouter();
-  const {
-    authenticate,
-    isAuthenticated,
-    account,
-    logout,
-    enableWeb3,
-    isWeb3Enabled,
-  } = useMoralis();
+  const { isAuthenticated, enableWeb3, isWeb3Enabled } = useMoralis();
+  const { data: dataTotalSupply, fetch: fetchTotalSupply } = useTotalSupply();
 
   const onClickRedirect = () => {
     if (!isAuthenticated) {
@@ -24,6 +18,7 @@ const Hero = () => {
       router.push("/staking");
     }
   };
+  console.log("dataSupply", dataTotalSupply);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -31,8 +26,9 @@ const Hero = () => {
     }
   }, [isAuthenticated]);
 
-  const { data } = useTotalSupply();
-  console.log(data);
+  useEffect(() => {
+    if (isWeb3Enabled) fetchTotalSupply();
+  }, [isWeb3Enabled]);
 
   return (
     <div className="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
