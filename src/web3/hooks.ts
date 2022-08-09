@@ -48,7 +48,7 @@ export const useDeposit = (amount?: ethers.BigNumber) => {
   return result;
 };
 
-export const useWithdraw = (amount: number) => {
+export const useWithdraw = (amount?: ethers.BigNumber) => {
   const result = useWeb3ExecuteFunction(
     {
       abi: contractAbi,
@@ -81,6 +81,19 @@ export const useBalance = (userAddress?: string | null) => {
     {
       abi: rc20Abi,
       contractAddress: approveAddress,
+      functionName: "balanceOf",
+      params: { account: userAddress },
+    },
+    { autoFetch: !!userAddress }
+  );
+  return result;
+};
+
+export const useWalletBalance = (userAddress?: string | null) => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: contractAbi,
+      contractAddress: contractAddress,
       functionName: "balanceOf",
       params: { account: userAddress },
     },

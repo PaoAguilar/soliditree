@@ -10,8 +10,10 @@ import {
 import {
   useAllowance,
   useAprove,
+  useBalance,
   useDecimal,
   useDeposit,
+  useWalletBalance,
   useWithdraw,
 } from "../src/web3/hooks";
 import moment from "moment";
@@ -20,24 +22,25 @@ import { ethers } from "ethers";
 
 const Withdraw = () => {
   const { chainId, switchNetwork } = useChain();
-  const { account } = useMoralis();
+  const { account, isWeb3Enabled } = useMoralis();
   const [amount, setAmount] = useState<string>("0");
-  const [balance, setBalance] = useState<any>();
+  // const [balance, setBalance] = useState<any>();
   const [transfers, setTransfers] = useState<any>();
 
-  const { data: decimals } = useDecimal();
-  const { fetch: deposit, isLoading: isLoadingDeposit } = useDeposit(
-    +amount * Math.pow(10, decimals as number)
-  );
-  const { fetch: withdraw } = useWithdraw(
-    +amount * Math.pow(10, decimals as number)
-  );
+  const { data: balance } = useWalletBalance(account);
+  const { data: decimals, fetch: fetchDecimals } = useDecimal();
 
+  // console.log("AMOUNT", amount);
+  console.log("DECIMALS", decimals);
   const bigAmmount = useMemo(() => {
     if (amount && decimals) {
       return ethers.utils.parseUnits(amount, decimals as number);
     }
   }, [amount, decimals]);
+  const { fetch: deposit, isLoading: isLoadingDeposit } =
+    useDeposit(bigAmmount);
+  const { fetch: withdraw, isLoading: isLoadingWithdraw } =
+    useWithdraw(bigAmmount);
 
   const {
     data: aproveData,
@@ -60,25 +63,53 @@ const Withdraw = () => {
     }
   }, [erc20Data, erc20TransfersData]);
 
+  useEffect(() => {
+    if (isWeb3Enabled) fetchDecimals();
+  }, [isWeb3Enabled]);
+
+  const dataAllowance = data as ethers.BigNumber;
+  // const dataBal
+  // console.log(
+  //   "ALLOWANCE",
+  //   dataAllowance &&
+  //     ethers.utils.formatUnits(
+  //       dataAllowance._hex.toString(),
+  //       decimals as number
+  //     )
+  // );
+  const allowance: any =
+    data &&
+    Number(
+      ethers.utils.formatUnits(
+        (data as ethers.BigNumber)._hex,
+        decimals as number
+      )
+    );
+
+  console.log("allowance", allowance);
+
+  const walletBalance =
+    (balance &&
+      Number(
+        ethers.utils.formatUnits(
+          (balance as ethers.BigNumber)._hex,
+          decimals as number
+        )
+      ).toFixed(2)) ||
+    0;
+
+  console.log("bigAmmount", amount);
+  console.log("allowance > bigAmmount ", allowance > (amount ?? 0));
   return (
     <div>
       <Navbar />
       <div className="px-4 py-11 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 ">
         <div className="max-w-screen-sm sm:text-center sm:mx-auto">
-          {/* <button onClick={() => fetch()}>getAllowance</button> */}
-          {/* <button
-            onClick={() =>
-              fetchERC20Balances({ params: { address: contractAddress } })
-            }
-          >
-            Refetch
-          </button> */}
-          {/* <pre>{JSON.stringify(erc20Data, null, 2)}</pre> */}
+          <button onClick={() => fetch()}>getAllowance</button>
           <h2 className="mb-4 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
             WALLET DEPOSITS{" "}
             <span className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-social-impact-100">
-              Balance:{" "}
-              {(balance && (balance[0]?.balance / 10 ** 18).toFixed(2)) || 0}
+              Balance: {walletBalance}
             </span>
           </h2>
           <div>
@@ -110,11 +141,15 @@ const Withdraw = () => {
                       }
                     }}
                   >
-                    WITHDRAW {amount} USDC
+                    {isLoadingWithdraw
+                      ? "Loading..."
+                      : `WITHDRAW ${amount} USDC`}
                   </button>
                 </div>
                 <div>
-                  {isCorrectNetwork && parseInt((data as any)?._hex, 16) > 0 ? (
+                  {isCorrectNetwork &&
+                  parseInt((data as any)?._hex, 16) > 0 &&
+                  allowance >= (amount ?? 0) ? (
                     <button
                       className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-300 hover:bg-social-impact-200 focus:shadow-outline focus:outline-none"
                       title="deposit"
@@ -123,12 +158,15 @@ const Withdraw = () => {
                         e.preventDefault();
                         try {
                           deposit();
+                          // console.log("bigAmmount", bigAmmount);
                         } catch (e) {
                           console.log(e);
                         }
                       }}
                     >
-                      {isLoadingDeposit ? "Loading" : `DEPOSIT ${amount} USDC`}
+                      {isLoadingDeposit
+                        ? "Loading..."
+                        : `DEPOSIT ${amount} USDC`}
                     </button>
                   ) : (
                     <button
@@ -146,7 +184,9 @@ const Withdraw = () => {
                         }
                       }}
                     >
-                      {isLoadingApprove ? "Loading" : `Approve ${amount} USDC`}
+                      {isLoadingApprove
+                        ? "Loading..."
+                        : `Approve ${amount} USDC`}
                     </button>
                   )}
                 </div>
