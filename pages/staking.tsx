@@ -172,10 +172,12 @@ const Staking = () => {
                   Wallet amount:
                   <br className="hidden md:block" />
                   <span className="inline-block text-social-impact-100">
-                    {ethers.utils.formatUnits(
-                      (balance as string) ?? "0",
-                      decimals as number
-                    )}
+                    {Number(
+                      ethers.utils.formatUnits(
+                        (balance as string) ?? "0",
+                        decimals as number
+                      )
+                    ).toFixed(2)}
                   </span>
                 </h2>
               </div>

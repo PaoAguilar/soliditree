@@ -217,7 +217,12 @@ const Withdraw = () => {
                             "MMMM Do YYYY, h:mm:ss a"
                           )}
                         </td>
-                        <td className="py-4 px-6">{transfer.value}</td>
+                        <td className="py-4 px-6">
+                          {ethers.utils.formatUnits(
+                            transfer.value,
+                            decimals as number
+                          )}
+                        </td>
                         <td className="py-4 px-6">{showTransaction()}</td>
                       </tr>
                     </>
