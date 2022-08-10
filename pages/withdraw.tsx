@@ -24,14 +24,11 @@ const Withdraw = () => {
   const { chainId, switchNetwork } = useChain();
   const { account, isWeb3Enabled } = useMoralis();
   const [amount, setAmount] = useState<string>("0");
-  // const [balance, setBalance] = useState<any>();
   const [transfers, setTransfers] = useState<any>();
 
   const { data: balance } = useWalletBalance(account);
   const { data: decimals, fetch: fetchDecimals } = useDecimal();
 
-  // console.log("AMOUNT", amount);
-  console.log("DECIMALS", decimals);
   const bigAmmount = useMemo(() => {
     if (amount && decimals) {
       return ethers.utils.parseUnits(amount, decimals as number);
@@ -41,18 +38,34 @@ const Withdraw = () => {
     useDeposit(bigAmmount);
   const { fetch: withdraw, isLoading: isLoadingWithdraw } =
     useWithdraw(bigAmmount);
-
+  const { data, fetch } = useAllowance(account);
+  const { data: erc20Data } = useERC20Balances({}, { autoFetch: true });
+  const { data: erc20TransfersData, isLoading: erc20TransfersIsLoading } =
+    useERC20Transfers();
+  const isCorrectNetwork = chainId === "0x89" || chainId === "0x13881";
   const {
     data: aproveData,
     fetch: approve,
     isLoading: isLoadingApprove,
   } = useAprove(bigAmmount);
 
-  const { data, fetch } = useAllowance(account);
-  const { data: erc20Data } = useERC20Balances({}, { autoFetch: true });
-  const { data: erc20TransfersData, isLoading: erc20TransfersIsLoading } =
-    useERC20Transfers();
-  const isCorrectNetwork = chainId === "0x89" || chainId === "0x13881";
+  const allowance: any =
+    data &&
+    Number(
+      ethers.utils.formatUnits(
+        (data as ethers.BigNumber)._hex,
+        decimals as number
+      )
+    );
+  const walletBalance =
+    (balance &&
+      Number(
+        ethers.utils.formatUnits(
+          (balance as ethers.BigNumber)._hex,
+          decimals as number
+        )
+      ).toFixed(2)) ||
+    0;
 
   useEffect(() => {
     if (erc20TransfersData) {
@@ -67,39 +80,6 @@ const Withdraw = () => {
     if (isWeb3Enabled) fetchDecimals();
   }, [isWeb3Enabled]);
 
-  const dataAllowance = data as ethers.BigNumber;
-  // const dataBal
-  // console.log(
-  //   "ALLOWANCE",
-  //   dataAllowance &&
-  //     ethers.utils.formatUnits(
-  //       dataAllowance._hex.toString(),
-  //       decimals as number
-  //     )
-  // );
-  const allowance: any =
-    data &&
-    Number(
-      ethers.utils.formatUnits(
-        (data as ethers.BigNumber)._hex,
-        decimals as number
-      )
-    );
-
-  console.log("allowance", allowance);
-
-  const walletBalance =
-    (balance &&
-      Number(
-        ethers.utils.formatUnits(
-          (balance as ethers.BigNumber)._hex,
-          decimals as number
-        )
-      ).toFixed(2)) ||
-    0;
-
-  console.log("bigAmmount", amount);
-  console.log("allowance > bigAmmount ", allowance > (amount ?? 0));
   return (
     <div>
       <Navbar />
