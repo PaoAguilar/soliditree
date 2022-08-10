@@ -184,7 +184,7 @@ const Steps = () => {
         <div className="relative">
           <img
             className="inset-0 object-contain object-bottom w-full rounded shadow-lg h-96 lg:absolute lg:h-full"
-            src="steps.png"
+            src="steps2.png"
             alt=""
           />
         </div>
