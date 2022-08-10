@@ -21,19 +21,14 @@ const Staking = () => {
     name: string;
     chainId: string;
   }>({ name: "Mumbai", chainId: "0x13881" });
-  const [amount, setAmount] = useState<string>("");
+  const [amount, setAmount] = useState<string>("0");
 
   const { account } = useMoralis();
   const { chainId, switchNetwork } = useChain();
-  const isCorrectNetwork = chainId === "0x89" || chainId === "0x13881";
-  const { data: erc20Data, fetchERC20Balances } = useERC20Balances(
-    { chain: chainId! as components["schemas"]["chainList"] },
-    { autoFetch: true }
-  );
-
   const { data, fetch } = useAllowance(account);
   const { data: balance } = useBalance(account);
   const { data: decimals } = useDecimal();
+  const isCorrectNetwork = chainId === "0x89" || chainId === "0x13881";
 
   const bigAmmount = useMemo(() => {
     if (amount && decimals) {
@@ -41,11 +36,17 @@ const Staking = () => {
     }
   }, [amount, decimals]);
 
-  console.log(bigAmmount);
-
-  const { fetch: deposit } = useDeposit(bigAmmount);
-
-  const { data: aproveData, fetch: approve } = useAprove(bigAmmount);
+  const allowance: any =
+    data &&
+    Number(
+      ethers.utils.formatUnits(
+        (data as ethers.BigNumber)._hex,
+        decimals as number
+      )
+    );
+  const { fetch: deposit, isLoading: isLoadingDeposit } =
+    useDeposit(bigAmmount);
+  const { fetch: approve, isLoading: isLoadingApprove } = useAprove(bigAmmount);
 
   return (
     <div>
@@ -122,21 +123,26 @@ const Staking = () => {
                       </div>
                     )}
                   </div>
-                  {isCorrectNetwork && parseInt((data as any)?._hex, 16) > 0 ? (
+                  {isCorrectNetwork &&
+                  parseInt((data as any)?._hex, 16) > 0 &&
+                  allowance >= (amount ?? 0) ? (
                     <button
-                      className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-100 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
-                      aria-label="Sign up"
+                      className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-300 hover:bg-social-impact-200 focus:shadow-outline focus:outline-none"
                       title="deposit"
-                      form="deposit"
-                      onClick={() => {
+                      form="transactions"
+                      onClick={(e) => {
+                        e.preventDefault();
                         try {
                           deposit();
+                          // console.log("bigAmmount", bigAmmount);
                         } catch (e) {
                           console.log(e);
                         }
                       }}
                     >
-                      DEPOSIT ON {depositSelected.name.toUpperCase()}
+                      {isLoadingDeposit
+                        ? "Loading..."
+                        : `DEPOSIT ${amount} USDT`}
                     </button>
                   ) : (
                     <button
@@ -154,7 +160,9 @@ const Staking = () => {
                         }
                       }}
                     >
-                      Approve {amount} USDT
+                      {isLoadingApprove
+                        ? "Loading..."
+                        : `Approve ${amount} USDT`}
                     </button>
                   )}
                 </form>
