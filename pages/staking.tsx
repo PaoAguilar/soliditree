@@ -154,7 +154,7 @@ const Staking = () => {
                         }
                       }}
                     >
-                      Approve {amount} USDC
+                      Approve {amount} USDT
                     </button>
                   )}
                 </form>

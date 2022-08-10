@@ -123,7 +123,7 @@ const Withdraw = () => {
                   >
                     {isLoadingWithdraw
                       ? "Loading..."
-                      : `WITHDRAW ${amount} USDC`}
+                      : `WITHDRAW ${amount} USDT`}
                   </button>
                 </div>
                 <div>
@@ -146,7 +146,7 @@ const Withdraw = () => {
                     >
                       {isLoadingDeposit
                         ? "Loading..."
-                        : `DEPOSIT ${amount} USDC`}
+                        : `DEPOSIT ${amount} USDT`}
                     </button>
                   ) : (
                     <button
@@ -166,7 +166,7 @@ const Withdraw = () => {
                     >
                       {isLoadingApprove
                         ? "Loading..."
-                        : `Approve ${amount} USDC`}
+                        : `Approve ${amount} USDT`}
                     </button>
                   )}
                 </div>

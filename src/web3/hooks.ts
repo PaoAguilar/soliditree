@@ -1,6 +1,6 @@
 import { useWeb3ExecuteFunction, useApiContract } from "react-moralis";
-import { contractAbi, rc20Abi } from "./abis";
-import { approveAddress, contractAddress } from "./addresses";
+import { contractAbi, nftAbi, rc20Abi } from "./abis";
+import { approveAddress, contractAddress, nftAddress } from "./addresses";
 import { ethers } from "ethers";
 
 export const useAprove = (amount?: ethers.BigNumber) => {
@@ -111,6 +111,45 @@ export const useTotalSupply = () => {
       params: {},
     },
     { autoFetch: true }
+  );
+  return result;
+};
+
+export const useCheckRole = (role: string, account: string | null) => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: nftAbi,
+      contractAddress: nftAddress,
+      functionName: "hasRole",
+      params: { account, role },
+    },
+    { autoFetch: true }
+  );
+  return result;
+};
+
+export const useTokenUri = (tokenId: string) => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: nftAbi,
+      contractAddress: nftAddress,
+      functionName: "tokenURI",
+      params: { tokenId },
+    },
+    { autoFetch: true }
+  );
+  return result;
+};
+
+export const useSafeMint = (userAddress: string | null) => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: nftAbi,
+      contractAddress: nftAddress,
+      functionName: "safeMint",
+      params: { to: userAddress },
+    },
+    { autoFetch: false }
   );
   return result;
 };
