@@ -5,26 +5,47 @@ import { useMoralis, useNFTBalances } from "react-moralis";
 import Footer from "../src/components/Footer/Footer";
 import { Navbar } from "../src/components/Navbar/Navbar";
 import { nftAddress } from "../src/web3/addresses";
-import { useCheckRole, useSafeMint } from "../src/web3/hooks";
+import {
+  useCheckRole,
+  useDecimal,
+  useSafeMint,
+  useWalletBalance,
+} from "../src/web3/hooks";
+import { ethers } from "ethers";
 
 const Profile = () => {
   const { account, isWeb3Enabled } = useMoralis();
   const role =
     "0xdffeb33a4726dd9fdaa4d05a54d6a1effabbd5f5b2c8cc66c3c1630ef432ff37";
-  const { data: hasRole, fetch } = useCheckRole(role, account);
+  const { data: hasRole, fetch: fetchCheckRole } = useCheckRole(role, account);
   const { data: nftData, isLoading } = useNFTBalances();
   const {
     data: mintData,
     fetch: safeMint,
     isLoading: isLoadingMint,
   } = useSafeMint(account);
+  const { data: balance } = useWalletBalance(account);
+  const { data: decimals, fetch: fetchDecimals } = useDecimal();
 
   const myNftData = nftData?.result?.filter(
     (nftData) => nftData.token_address === nftAddress
   );
 
+  const walletBalance =
+    (balance &&
+      Number(
+        ethers.utils.formatUnits(
+          (balance as ethers.BigNumber)._hex,
+          decimals as number
+        )
+      ).toFixed(2)) ||
+    0;
+
   useEffect(() => {
-    if (isWeb3Enabled) fetch();
+    if (isWeb3Enabled) {
+      fetchCheckRole();
+      fetchDecimals();
+    }
   }, [isWeb3Enabled]);
   return (
     <div>
@@ -54,11 +75,13 @@ const Profile = () => {
           <h2 className="mb-4 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
             TOTAL STAKE BALANCE
           </h2>
-          <h2 className="sm:px-4 text-3xl text-social-impact-100">$0.00</h2>
+          <h2 className="sm:px-4 text-3xl text-social-impact-100">
+            {walletBalance}
+          </h2>
           <hr className="w-full my-8 border-gray-300" />
         </div>
       </div>
-      <div>
+      <div className="max-w-screen-sm sm:text-center sm:mx-auto">
         <button
           className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-100 hover:bg-social-impact-200 focus:shadow-outline focus:outline-none"
           title="withdraw"
