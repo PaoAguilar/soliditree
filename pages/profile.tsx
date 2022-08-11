@@ -122,13 +122,13 @@ const Profile = () => {
           <div className="flex flex-col justify-between p-5 sm:p-10 lg:w-1/2">
             <div>
               <p className="mb-2 text-xs font-semibold tracking-wide uppercase">
-                Days left for reward
+                Days left for claim
               </p>
               <h5 className="max-w-md mb-6 text-3xl font-extrabold leading-none sm:text-4xl text-center">
                 0
               </h5>
               <p className="mb-6 text-base text-gray-700 md:text-lg sm:mb-8">
-                You have 0 days remaining to get the reward
+                You have 0 days remaining to get the commemorative NFT
               </p>
             </div>
           </div>
@@ -173,9 +173,7 @@ const Profile = () => {
             </span>
             MY NFTS
           </h2>
-          <p className="text-base text-gray-700 md:text-lg">
-            NFTs obtained as rewards
-          </p>
+          <p className="text-base text-gray-700 md:text-lg">Obtained NFTs</p>
         </div>
         <div className="grid gap-5 row-gap-5 mb-8 lg:grid-cols-4 sm:grid-cols-2">
           {myNftData?.map((nftData) => {

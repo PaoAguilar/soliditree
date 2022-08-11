@@ -121,17 +121,16 @@ const About = () => {
           </div>
           <div>
             <h6 className="mb-3 text-xl font-bold leading-5">
-              Staking-Based Donation
+              Powered by Polygon
             </h6>
             <p className="mb-3 text-sm text-gray-900">
-              Users generate a small yield pooling all deposits using the AAVE
-              protocol, In that way we supply USDT tokens, and we receive back a
-              small yield over time on our deposits. The choice of AAVE was done
-              due to it's safe features like Isolated mode and because it has
-              good liquidity and yield for Stable Coins.
+              Staking is done through Polygon, one of the chains with the least
+              environmental impact on the blockchain and one of the fastest and
+              safest.
             </p>
           </div>
         </div>
+
         <div className="flex flex-col max-w-md sm:mx-auto sm:flex-row">
           <div className="mr-4">
             <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
@@ -152,12 +151,12 @@ const About = () => {
           </div>
           <div>
             <h6 className="mb-3 text-xl font-bold leading-5">
-              Powered by Polygon
+              Take your money back
             </h6>
             <p className="mb-3 text-sm text-gray-900">
-              Staking is done through Polygon, one of the chains with the least
-              environmental impact on the blockchain and one of the fastest and
-              safest.
+              You can take your money back at any time, unlike most other
+              donation sites, with our staking system you can get your money
+              back partially or completely.
             </p>
           </div>
         </div>
@@ -210,12 +209,14 @@ const About = () => {
           </div>
           <div>
             <h6 className="mb-3 text-xl font-bold leading-5">
-              Powered by Polygon
+              Staking-Based Donation
             </h6>
             <p className="mb-3 text-sm text-gray-900">
-              Staking is done through Polygon, one of the chains with the least
-              environmental impact on the blockchain and one of the fastest and
-              safest.
+              Users generate a small yield pooling all deposits using the AAVE
+              protocol, In that way we supply USDT tokens, and we receive back a
+              small yield over time on our deposits. The choice of AAVE was done
+              due to it's safe features like Isolated mode and because it has
+              good liquidity and yield for Stable Coins.
             </p>
           </div>
         </div>
