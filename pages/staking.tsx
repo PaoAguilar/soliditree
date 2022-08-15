@@ -55,7 +55,6 @@ const Staking = () => {
         <div className="p-8 rounded shadow-xl sm:p-16">
           <div className="flex flex-col lg:flex-row">
             <div className="mb-6 lg:mb-0 lg:w-1/2 lg:pr-5">
-              <button onClick={() => fetch()}>getAllowance</button>
               <h2 className="font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
                 CHOOSE WHERE TO
                 <br className="hidden md:block" />
@@ -88,7 +87,7 @@ const Staking = () => {
             </div>
           </div>
           {/* Segunda parte */}
-          <div style={{ marginTop: "12rem" }}>
+          <div style={{ marginTop: "5rem" }}>
             <div className="flex flex-col lg:flex-row">
               <div className="lg:w-1/2">
                 <form id="deposit">
@@ -134,7 +133,7 @@ const Staking = () => {
                         e.preventDefault();
                         try {
                           deposit();
-                          // console.log("bigAmmount", bigAmmount);
+                          console.log("bigAmmount", bigAmmount);
                         } catch (e) {
                           console.log(e);
                         }

@@ -36,8 +36,11 @@ const Withdraw = () => {
   }, [amount, decimals]);
   const { fetch: deposit, isLoading: isLoadingDeposit } =
     useDeposit(bigAmmount);
-  const { fetch: withdraw, isLoading: isLoadingWithdraw } =
-    useWithdraw(bigAmmount);
+  const {
+    fetch: withdraw,
+    isLoading: isLoadingWithdraw,
+    error,
+  } = useWithdraw(bigAmmount);
   const { data, fetch } = useAllowance(account);
   const { data: erc20Data } = useERC20Balances({}, { autoFetch: true });
   const { data: erc20TransfersData, isLoading: erc20TransfersIsLoading } =

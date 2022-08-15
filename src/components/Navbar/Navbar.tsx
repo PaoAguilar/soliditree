@@ -25,53 +25,57 @@ export const Navbar = () => {
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="relative flex items-center justify-between">
-        <a
-          href="/"
-          aria-label="Company"
-          title="Company"
-          className="inline-flex items-center"
-        >
-          <img
-            className="w-8 text-social-impact-300"
-            src="logo.svg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-            alt=""
-          />
-          <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-            SolidiTree
-          </span>
-        </a>
+        <Link href="/" passHref>
+          <a
+            aria-label="Company"
+            title="Company"
+            className="inline-flex items-center"
+          >
+            <img
+              className="w-8 text-social-impact-300"
+              src="logo.svg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+              alt=""
+            />
+            <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+              SolidiTree
+            </span>
+          </a>
+        </Link>
         <ul className="flex items-center hidden space-x-8 lg:flex">
           {isAuthenticated && (
             <>
               <li>
-                <a
-                  href="/staking"
-                  aria-label="Our product"
-                  title="Our product"
-                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-                >
-                  Staking
-                </a>
+                <Link href="/staking" passHref>
+                  <a
+                    aria-label="Our product"
+                    title="Our product"
+                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
+                  >
+                    Staking
+                  </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/profile"
-                  aria-label="Our product"
-                  title="Our product"
-                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-                >
-                  Profile
-                </a>
+                <Link href="/profile" passHref>
+                  <a
+                    aria-label="Our product"
+                    title="Our product"
+                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
+                  >
+                    Profile
+                  </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/withdraw"
-                  aria-label="Our product"
-                  title="Our product"
-                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
-                >
-                  Withdraw
-                </a>
+                <Link href="/withdraw" passHref>
+                  <a
+                    aria-label="Our product"
+                    title="Our product"
+                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-social-impact-300"
+                  >
+                    Withdraw
+                  </a>
+                </Link>
               </li>
             </>
           )}

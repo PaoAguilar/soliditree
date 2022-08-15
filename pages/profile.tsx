@@ -185,15 +185,16 @@ const Profile = () => {
                 className="inline-block overflow-hidden duration-300 transform bg-white rounded shadow-sm hover:-translate-y-2"
               >
                 <div className="flex flex-col h-full">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={`${nftData.metadata.image}?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260`}
-                    className="object-cover w-full h-48"
+                    src={`${nftData.metadata?.image}?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260`}
+                    className="object-contain w-full h-48"
                     alt=""
                   />
                   <div className="flex-grow border border-t-0 rounded-b">
                     <div className="p-5">
                       <h6 className="mb-2 font-semibold leading-5">
-                        {nftData.metadata.name}
+                        {nftData.metadata?.name}
                       </h6>
                       <p className="text-sm text-gray-900">
                         A short description here?
