@@ -183,8 +183,8 @@ const Steps = () => {
         </div>
         <div className="relative">
           <img
-            className="inset-0 object-cover object-bottom w-full rounded shadow-lg h-96 lg:absolute lg:h-full"
-            src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+            className="inset-0 object-contain object-bottom w-full rounded shadow-lg h-96 lg:absolute lg:h-full"
+            src="steps2.png"
             alt=""
           />
         </div>

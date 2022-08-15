@@ -1,6 +1,6 @@
-import { useWeb3ExecuteFunction } from "react-moralis";
-import { contractAbi, rc20Abi } from "./abis";
-import { approveAddress, contractAddress } from "./addresses";
+import { useWeb3ExecuteFunction, useApiContract } from "react-moralis";
+import { contractAbi, nftAbi, rc20Abi } from "./abis";
+import { approveAddress, contractAddress, nftAddress } from "./addresses";
 import { ethers } from "ethers";
 
 export const useAprove = (amount?: ethers.BigNumber) => {
@@ -48,7 +48,7 @@ export const useDeposit = (amount?: ethers.BigNumber) => {
   return result;
 };
 
-export const useWithdraw = (amount: number) => {
+export const useWithdraw = (amount?: ethers.BigNumber) => {
   const result = useWeb3ExecuteFunction(
     {
       abi: contractAbi,
@@ -89,6 +89,19 @@ export const useBalance = (userAddress?: string | null) => {
   return result;
 };
 
+export const useWalletBalance = (userAddress?: string | null) => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: contractAbi,
+      contractAddress: contractAddress,
+      functionName: "balanceOf",
+      params: { account: userAddress },
+    },
+    { autoFetch: !!userAddress }
+  );
+  return result;
+};
+
 export const useTotalSupply = () => {
   const result = useWeb3ExecuteFunction(
     {
@@ -98,6 +111,45 @@ export const useTotalSupply = () => {
       params: {},
     },
     { autoFetch: true }
+  );
+  return result;
+};
+
+export const useCheckRole = (role: string, account: string | null) => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: nftAbi,
+      contractAddress: nftAddress,
+      functionName: "hasRole",
+      params: { account, role },
+    },
+    { autoFetch: true }
+  );
+  return result;
+};
+
+export const useTokenUri = (tokenId: string) => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: nftAbi,
+      contractAddress: nftAddress,
+      functionName: "tokenURI",
+      params: { tokenId },
+    },
+    { autoFetch: true }
+  );
+  return result;
+};
+
+export const useSafeMint = (userAddress: string | null) => {
+  const result = useWeb3ExecuteFunction(
+    {
+      abi: nftAbi,
+      contractAddress: nftAddress,
+      functionName: "safeMint",
+      params: { to: userAddress },
+    },
+    { autoFetch: false }
   );
   return result;
 };
