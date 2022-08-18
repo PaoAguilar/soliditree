@@ -73,6 +73,7 @@ const Profile = () => {
   }
 
   return (
+    // @ts-ignore
     <div>
       <Navbar />
       <div className="px-4 py-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 ">
@@ -101,7 +102,7 @@ const Profile = () => {
             TOTAL STAKE BALANCE
           </h2>
           <h2 className="sm:px-4 text-3xl text-social-impact-100">
-            {walletBalance || 0}
+            {(walletBalance as number) || 0}
           </h2>
           <hr className="w-full my-8 border-gray-300" />
         </div>
