@@ -133,7 +133,6 @@ const Staking = () => {
                         e.preventDefault();
                         try {
                           deposit();
-                          console.log("bigAmmount", bigAmmount);
                         } catch (e) {
                           console.log(e);
                         }
@@ -151,9 +150,7 @@ const Staking = () => {
                       form="deposit"
                       onClick={() => {
                         try {
-                          approve().then((data) => {
-                            console.log(data);
-                          });
+                          approve();
                         } catch (error) {
                           console.log(error);
                         }

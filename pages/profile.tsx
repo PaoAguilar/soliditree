@@ -27,9 +27,10 @@ const Profile = () => {
     data: ERC20TransferData,
     isFetching,
   } = useERC20Transfers();
+  console.log(nftData);
 
   const myNftData = nftData?.result?.filter(
-    (nftData) => nftData.token_address === nftAddress
+    (nftData) => nftData.token_address === nftAddress.toLowerCase()
   );
 
   const walletBalance =
@@ -49,6 +50,28 @@ const Profile = () => {
       fetchERC20Transfers();
     }
   }, [isWeb3Enabled]);
+
+  function getLeftDays(days = 0) {
+    if (days <= 1) {
+      return "1 day left";
+    }
+    if (days > 1 && days < 30) {
+      return 30 - days + " days left";
+    }
+    if (days >= 30 && days < 90) {
+      return 90 - days + " days left";
+    }
+    if (days >= 90 && days < 180) {
+      return 180 - days + " days left";
+    }
+    if (days >= 180 && days < 365) {
+      return 365 - days + " days left";
+    }
+    if (days >= 365) {
+      return "Congrats! you've get the final NFT";
+    }
+  }
+
   return (
     <div>
       <Navbar />
@@ -83,7 +106,7 @@ const Profile = () => {
           <hr className="w-full my-8 border-gray-300" />
         </div>
       </div>
-      {hasRole && (
+      {hasRole && (myNftData?.length ?? 0) < 1 && (
         <div className="max-w-screen-sm sm:text-center sm:mx-auto">
           <button
             className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-100 hover:bg-social-impact-200 focus:shadow-outline focus:outline-none"
@@ -112,10 +135,11 @@ const Profile = () => {
                 Days in staking
               </p>
               <h5 className="max-w-md mb-6 text-3xl font-extrabold leading-none sm:text-4xl text-center">
-                0
+                {myNftData?.[0]?.metadata?.attributes?.stakeTime}
               </h5>
               <p className="mb-6 text-base text-gray-700 md:text-lg sm:mb-8">
-                You have 0 days of having deposited in staking
+                You have {myNftData?.[0]?.metadata?.attributes?.stakeTime} days
+                of having deposited in staking
               </p>
             </div>
           </div>
@@ -125,26 +149,20 @@ const Profile = () => {
                 Days left for claim
               </p>
               <h5 className="max-w-md mb-6 text-3xl font-extrabold leading-none sm:text-4xl text-center">
-                0
+                {getLeftDays(myNftData?.[0]?.metadata?.attributes?.stakeTime)}
               </h5>
-              <p className="mb-6 text-base text-gray-700 md:text-lg sm:mb-8">
-                You have 0 days remaining to get the commemorative NFT
-              </p>
+              {myNftData?.[0]?.metadata?.attributes?.stakeTime < 365 && (
+                <p className="mb-6 text-base text-gray-700 md:text-lg sm:mb-8">
+                  You have{" "}
+                  {getLeftDays(myNftData?.[0]?.metadata?.attributes?.stakeTime)}{" "}
+                  days remaining to get the commemorative Tree badge
+                </p>
+              )}
             </div>
           </div>
         </div>
       </div>
-      {/* FIN DE LA SEGUNDA PARTE */}
-      {/* <div className="px-4 py-10 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 ">
-            <div className="max-w-screen-sm sm:text-center sm:mx-auto">
-                <h2 className="mb-4 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-                MY NFT'S
-                </h2>
-                <hr className="w-full my-8 border-gray-300" />
-            </div>
-            </div> */}
-      {/* COMIENZO A MOSTRAR LOS NFTS */}
-      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
           <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
             <span className="relative inline-block">
@@ -171,18 +189,16 @@ const Profile = () => {
                 />
               </svg>
             </span>
-            MY NFTS
+            MY BADGE
           </h2>
-          <p className="text-base text-gray-700 md:text-lg">Obtained NFTs</p>
         </div>
-        <div className="grid gap-5 row-gap-5 mb-8 lg:grid-cols-4 sm:grid-cols-2">
+        <div className="flex justify-center">
           {myNftData?.map((nftData) => {
-            console.log("nftData", nftData);
             return (
               <a
                 key={nftData.token_uri}
                 aria-label="View Item"
-                className="inline-block overflow-hidden duration-300 transform bg-white rounded shadow-sm hover:-translate-y-2"
+                className="inline-block overflow-hidden duration-300 transform bg-white rounded shadow-sm hover:-translate-y-2 min-w-40 w-80"
               >
                 <div className="flex flex-col h-full">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -193,12 +209,13 @@ const Profile = () => {
                   />
                   <div className="flex-grow border border-t-0 rounded-b">
                     <div className="p-5">
-                      <h6 className="mb-2 font-semibold leading-5">
+                      <h3 className="mb-2 font-semibold leading-5 text-xl capitalize">
                         {nftData.metadata?.name}
+                      </h3>
+                      <h6 className="mb-2 font-semibold leading-5 text-lg">
+                        Stake time: {nftData.metadata?.attributes?.stakeTime}{" "}
+                        days
                       </h6>
-                      <p className="text-sm text-gray-900">
-                        A short description here?
-                      </p>
                     </div>
                   </div>
                 </div>

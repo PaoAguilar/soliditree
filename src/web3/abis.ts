@@ -16,6 +16,11 @@ export const contractAbi = [
         name: "_symbol",
         type: "string",
       },
+      {
+        internalType: "address",
+        name: "whitelist",
+        type: "address",
+      },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -146,6 +151,63 @@ export const contractAbi = [
     type: "event",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "endedAt",
+        type: "uint256",
+      },
+    ],
+    name: "stakeEndedAt",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "resumeAt",
+        type: "uint256",
+      },
+    ],
+    name: "stakeResumeAt",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "startedAt",
+        type: "uint256",
+      },
+    ],
+    name: "stakeStartedAt",
+    type: "event",
+  },
+  {
     inputs: [],
     name: "DEFAULT_ADMIN_ROLE",
     outputs: [
@@ -160,7 +222,7 @@ export const contractAbi = [
   },
   {
     inputs: [],
-    name: "MINTER_ROLE",
+    name: "WHITE_LISTED_ROLE",
     outputs: [
       {
         internalType: "bytes32",
@@ -292,24 +354,19 @@ export const contractAbi = [
     inputs: [
       {
         internalType: "address",
-        name: "account",
+        name: "_account",
         type: "address",
       },
+    ],
+    name: "depositIndex",
+    outputs: [
       {
         internalType: "uint256",
-        name: "amount",
+        name: "",
         type: "uint256",
       },
     ],
-    name: "depositFor",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -342,24 +399,6 @@ export const contractAbi = [
         internalType: "address",
         name: "account",
         type: "address",
-      },
-    ],
-    name: "grantRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_to",
-        type: "address",
-      },
-      {
-        internalType: "bytes32",
-        name: "_role",
-        type: "bytes32",
       },
     ],
     name: "grantRole",
@@ -413,6 +452,44 @@ export const contractAbi = [
       },
     ],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_account",
+        type: "address",
+      },
+    ],
+    name: "isResuming",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_account",
+        type: "address",
+      },
+    ],
+    name: "isStaking",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -586,30 +663,6 @@ export const contractAbi = [
     name: "withdraw",
     outputs: [],
     stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "withdrawTo",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
     type: "function",
   },
 ];
@@ -1315,13 +1368,7 @@ export const nftAbi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-    ],
+    inputs: [],
     name: "safeMint",
     outputs: [],
     stateMutability: "nonpayable",
