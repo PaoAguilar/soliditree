@@ -58,9 +58,19 @@ const Hero = () => {
         />
       </div>
       <div className="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl">
-        <div className="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
+        <div className="mb-16 lg:max-w-lg lg:pr-5">
+          <h2 className="font-sans text-5xl font-bold tracking-tight sm:text-5xl sm:leading-none">
+            <span className="inline-block text-social-impact-300">
+              Stake crypto.
+            </span>
+          </h2>
+          <h2 className="mb-5 font-sans text-5xl font-bold tracking-tight sm:text-5xl sm:leading-none">
+            <span className="inline-block text-social-impact-300">
+              Plant trees.
+            </span>
+          </h2>
           <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-social-impact-100">
-            Features
+            Join now
           </p>
           <h2 className="mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
             Let's reduce the carbon footprint{" "}
