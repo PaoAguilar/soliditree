@@ -145,7 +145,7 @@ export const Navbar = () => {
             </svg>
           </button>
           {isMenuOpen && (
-            <div className="absolute top-0 left-0 w-full">
+            <div className="absolute top-0 left-0 w-full z-50">
               <div className="p-5 bg-white border rounded shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <div>
@@ -186,14 +186,46 @@ export const Navbar = () => {
                 <nav>
                   <ul className="space-y-4">
                     <li>
-                      <a
-                        href="/signIn"
-                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-300 hover:bg-social-impact-200 focus:shadow-outline focus:outline-none"
-                        aria-label="Sign up"
-                        title="Sign up"
-                      >
-                        Sign up
-                      </a>
+                      {isAuthenticated ? (
+                        <>
+                          <button
+                            onClick={() => {
+                              logout();
+                              route.push("/");
+                            }}
+                            className="w-full ml-4 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-200 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none"
+                            aria-label="Sign up"
+                            title="Logout"
+                          >
+                            Logout
+                          </button>
+                          <a
+                            href="/profile"
+                            className="w-full inline-block px-5 py-3 mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase "
+                          >
+                            {account?.slice(0, 10)}...
+                          </a>
+                        </>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            console.log("clicked");
+
+                            authenticate()
+                              .then((data) => {
+                                console.log(data);
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              });
+                          }}
+                          className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-social-impact-200 hover:bg-social-impact-300 focus:shadow-outline focus:outline-none w-full"
+                          aria-label="Sign up"
+                          title="Sign up"
+                        >
+                          Sign in
+                        </button>
+                      )}
                     </li>
                   </ul>
                 </nav>
