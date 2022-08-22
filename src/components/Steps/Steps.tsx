@@ -175,7 +175,7 @@ const Steps = () => {
               </div>
             </div>
             <div className="pt-1">
-              <p className="mb-2 text-lg font-bold text-social-impact-200">
+              <p className="mb-2 text-lg font-bold rounded-full text-social-impact-100">
                 Success
               </p>
             </div>
