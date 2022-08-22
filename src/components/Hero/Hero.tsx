@@ -1,17 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @next/next/no-html-link-for-pages */
-import React, { useEffect, useState } from "react";
-import { BigNumber, ethers } from "ethers";
-import { useMoralis, useApiContract } from "react-moralis";
+import { ethers } from "ethers";
 import { useRouter } from "next/router";
-import { useTotalSupply, useDecimal } from "../../web3/hooks";
+import { useEffect, useState } from "react";
+import { useMoralis } from "react-moralis";
+import { TickerResult } from "../../types";
+import { contractAddress } from "../../web3/addresses";
+import { fetchTicker, fetchTotalSupply } from "../../web3/fetchs";
 
 const Hero = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const router = useRouter();
   const { isAuthenticated, enableWeb3, isWeb3Enabled } = useMoralis();
-  const { data: dataTotalSupply, fetch: fetchTotalSupply } = useTotalSupply();
-  const { data: decimals, fetch: fetchDecimal } = useDecimal();
+  const [totalSupply, setTotalSupply] = useState<number>();
+  const [ticker, setTicker] = useState<{ result: TickerResult }>();
 
   const onClickRedirect = () => {
     if (!isAuthenticated) {
@@ -20,12 +22,10 @@ const Hero = () => {
       router.push("/staking");
     }
   };
-  const totalSup = dataTotalSupply as ethers.BigNumber;
-  const supplyToBigNumber = totalSup && BigNumber.from(totalSup._hex);
+
   const totalSupplyValue =
-    totalSup &&
-    ethers.utils.formatUnits(supplyToBigNumber.toString(), decimals as number);
-  console.log("totalSupplyValue", totalSupplyValue);
+    totalSupply &&
+    ethers.utils.formatUnits(totalSupply.toString(), ticker?.result.decimals);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -34,11 +34,17 @@ const Hero = () => {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    if (isWeb3Enabled) {
-      fetchTotalSupply();
-      fetchDecimal();
-    }
-  }, [isWeb3Enabled]);
+    fetchTotalSupply()
+      .then((res) => res.json())
+      .then((jsonTotalSupply) => setTotalSupply(jsonTotalSupply))
+      .catch((err) => console.error("error:" + err));
+  }, []);
+
+  useEffect(() => {
+    fetchTicker(contractAddress)
+      .then((jsonTicker) => setTicker(jsonTicker))
+      .catch((err) => console.error("error:" + err));
+  }, []);
 
   return (
     <div className="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
@@ -79,7 +85,8 @@ const Hero = () => {
               </p>
               <div className="flex items-center justify-center">
                 <p className="mr-2 text-5xl font-semibold text-white md:text-1xl">
-                  {Number(totalSupplyValue).toFixed(2)}
+                  {Number(totalSupplyValue).toFixed(2)}{" "}
+                  <span className="text-2xl">{ticker?.result.symbol}</span>
                 </p>
                 {/* <p className="text-lg text-gray-500">/ month</p> */}
               </div>

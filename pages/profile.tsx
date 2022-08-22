@@ -4,11 +4,12 @@ import React, { useEffect } from "react";
 import { useMoralis, useNFTBalances, useERC20Transfers } from "react-moralis";
 import Footer from "../src/components/Footer/Footer";
 import { Navbar } from "../src/components/Navbar/Navbar";
-import { nftAddress } from "../src/web3/addresses";
+import { contractAddress, nftAddress } from "../src/web3/addresses";
 import {
   useCheckRole,
   useDecimal,
   useSafeMint,
+  useTicker,
   useWalletBalance,
 } from "../src/web3/hooks";
 import { ethers } from "ethers";
@@ -22,12 +23,13 @@ const Profile = () => {
   const { fetch: safeMint, isLoading: isLoadingMint } = useSafeMint(account);
   const { data: balance } = useWalletBalance(account);
   const { data: decimals, fetch: fetchDecimals } = useDecimal();
+
+  const ticker = useTicker(contractAddress);
   const {
     fetchERC20Transfers,
     data: ERC20TransferData,
     isFetching,
   } = useERC20Transfers();
-  console.log(nftData);
 
   const myNftData = nftData?.result?.filter(
     (nftData) => nftData.token_address === nftAddress.toLowerCase()
@@ -102,7 +104,8 @@ const Profile = () => {
             TOTAL STAKE BALANCE
           </h2>
           <h2 className="sm:px-4 text-3xl text-social-impact-100">
-            {(walletBalance as number) || 0}
+            {(walletBalance as number) || 0}{" "}
+            <span className="text-xl">{ticker?.result.symbol}</span>
           </h2>
           <hr className="w-full my-8 border-gray-300" />
         </div>
@@ -211,7 +214,7 @@ const Profile = () => {
                   <div className="flex-grow border border-t-0 rounded-b">
                     <div className="p-5">
                       <h3 className="mb-2 font-semibold leading-5 text-xl capitalize">
-                        {nftData.metadata?.name}
+                        {nftData.metadata?.attributes?.type}
                       </h3>
                       <h6 className="mb-2 font-semibold leading-5 text-lg">
                         Stake time: {nftData.metadata?.attributes?.stakeTime}{" "}
