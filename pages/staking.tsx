@@ -1,15 +1,16 @@
 import { ethers } from "ethers";
-import { components } from "moralis/types/generated/web3Api";
 import { useMemo, useState } from "react";
-import { useChain, useERC20Balances, useMoralis } from "react-moralis";
+import { useChain, useMoralis } from "react-moralis";
 import Footer from "../src/components/Footer/Footer";
 import { Navbar } from "../src/components/Navbar/Navbar";
+import { approveAddress } from "../src/web3/addresses";
 import {
   useAllowance,
   useAprove,
   useBalance,
   useDecimal,
   useDeposit,
+  useTicker,
 } from "../src/web3/hooks";
 const chains = {
   "0x89": "Polygon",
@@ -47,6 +48,7 @@ const Staking = () => {
   const { fetch: deposit, isLoading: isLoadingDeposit } =
     useDeposit(bigAmmount);
   const { fetch: approve, isLoading: isLoadingApprove } = useAprove(bigAmmount);
+  const ticker = useTicker(approveAddress);
 
   return (
     <div>
@@ -181,7 +183,8 @@ const Staking = () => {
                         (balance as string) ?? "0",
                         decimals as number
                       )
-                    ).toFixed(2)}
+                    ).toFixed(2)}{" "}
+                    <span>{ticker?.result.symbol}</span>
                   </span>
                 </h2>
               </div>

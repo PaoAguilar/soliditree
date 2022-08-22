@@ -13,6 +13,7 @@ import {
   useBalance,
   useDecimal,
   useDeposit,
+  useTicker,
   useWalletBalance,
   useWithdraw,
 } from "../src/web3/hooks";
@@ -83,6 +84,7 @@ const Withdraw = () => {
     if (isWeb3Enabled) fetchDecimals();
   }, [isWeb3Enabled]);
 
+  const ticker = useTicker(contractAddress);
   return (
     <div>
       <Navbar />
@@ -90,8 +92,8 @@ const Withdraw = () => {
         <div className="max-w-screen-sm sm:text-center sm:mx-auto">
           <h2 className="mb-4 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
             WALLET DEPOSITS {/* @ts-ignore */}
-            <span className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-social-impact-100">
-              Balance: {walletBalance}
+            <span className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900  rounded-full bg-social-impact-100">
+              Balance: {walletBalance} {ticker?.result.symbol}
             </span>
           </h2>
           <div>
@@ -125,7 +127,7 @@ const Withdraw = () => {
                   >
                     {isLoadingWithdraw
                       ? "Loading..."
-                      : `WITHDRAW ${amount} USDT`}
+                      : `WITHDRAW ${amount} ${ticker?.result.symbol}`}
                   </button>
                 </div>
                 <div>

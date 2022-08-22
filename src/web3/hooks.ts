@@ -2,6 +2,9 @@ import { useWeb3ExecuteFunction, useApiContract } from "react-moralis";
 import { contractAbi, nftAbi, rc20Abi } from "./abis";
 import { approveAddress, contractAddress, nftAddress } from "./addresses";
 import { ethers } from "ethers";
+import { TickerResult } from "../types";
+import { useEffect, useState } from "react";
+import { fetchTicker } from "./fetchs";
 
 export const useAprove = (amount?: ethers.BigNumber) => {
   const result = useWeb3ExecuteFunction(
@@ -152,4 +155,15 @@ export const useSafeMint = (userAddress: string | null) => {
     { autoFetch: false }
   );
   return result;
+};
+
+export const useTicker = (address: string) => {
+  const [ticker, setTicker] = useState<{ result: TickerResult }>();
+  useEffect(() => {
+    fetchTicker(address)
+      .then((jsonTicker) => setTicker(jsonTicker))
+      .catch((err) => console.error("error:" + err));
+  }, []);
+
+  return ticker;
 };
